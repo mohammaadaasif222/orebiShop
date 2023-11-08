@@ -45,6 +45,9 @@ export const orebiSlice = createSlice({
     resetCart: (state) => {
       state.products = [];
     },
+    setUserInfo:(state, action)=>{
+      state.userInfo = action.payload;
+    }
   },
 });
 
@@ -54,5 +57,6 @@ export const {
   drecreaseQuantity,
   deleteItem,
   resetCart,
+  setUserInfo,
 } = orebiSlice.actions;
 export default orebiSlice.reducer;

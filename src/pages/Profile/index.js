@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { logoLight } from "../../assets/images";
 import { useSelector } from "react-redux";
 
-
 const Profile = () => {
   const { products } = useSelector((state) => state.orebiReducer);
+  const { userInfo } = useSelector((state) => state.orebiReducer);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -53,30 +53,80 @@ const Profile = () => {
     <div className="w-full h-screen flex items-center justify-center">
       <div className="w-1/2 hidden lgl:inline-flex h-full text-white">
         <div className="w-[450px] h-full  px-10 flex flex-col gap-6 justify-center">
-        { products ? products.map((item) => (
-          <div
-            key={item.title}
-            className="max-w-[600px] h-28 bg-gray-100 mb-3 flex items-center gap-3"
-          >
-            <img className="w-20 p-3" src={item.image} alt="productImg" />
-            <div className="flex flex-col gap-1">
-              <p className="font-semibold text-lg  text-black">{item.name?.split(" ").slice(0, 3).join(" ")}</p>
-              {/* <p className="text-xs">{item.description?.split(" ").slice(0, 10).join(" ")}</p> */}
-              <p className="text-sm text-black">
-                Price:{" "}
-                <span className="text-primeColor font-semibold text-black" >
-                  ${item.price}
-                </span>
-              </p>
-            </div>
-          </div>
-        )) :   <span className="text-primeColor font-semibold text-black" >
-        No Product Found!
-      </span>}
+          {products ? (
+            products.map((item) => (
+              <div
+                key={item.title}
+                className="max-w-[600px] h-28 bg-gray-100 mb-3 flex items-center gap-3"
+              >
+                <img className="w-20 p-3" src={item.image} alt="productImg" />
+                <div className="flex flex-col gap-1">
+                  <p className="font-semibold text-lg  text-black">
+                    {item.name?.split(" ").slice(0, 3).join(" ")}
+                  </p>
+                  {/* <p className="text-xs">{item.description?.split(" ").slice(0, 10).join(" ")}</p> */}
+                  <p className="text-sm text-black">
+                    Price:{" "}
+                    <span className="text-primeColor font-semibold text-black">
+                      ${item.price}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <span className="text-primeColor font-semibold text-black">
+              No Product Found!
+            </span>
+          )}
         </div>
       </div>
       <div className="w-full lgl:w-1/2 h-full">
-        {successMsg ? (
+        <div className="flex min-h-screen items-center justify-center bg-[#F5F5F3]">
+          <div className="mx-auto px-5">
+            <div className="max-w-xs cursor-pointer rounded-lg bg-white p-2 shadow duration-150 hover:scale-105 hover:shadow-md">
+              <img
+                className="w-full rounded-lg object-cover object-center p-3"
+                src="https://res.cloudinary.com/mae-com-in/image/upload/v1699458800/images_bx6zzs.png"
+                alt="product"
+              />
+              <div>
+                <div className="my-6 flex items-center justify-between px-4">
+                  <p className="font-bold text-gray-500">User</p>
+                  <p className="rounded-full bg-blue-500 px-2 py-0.5 text-xs font-semibold text-white">
+                    {userInfo.clientName}
+                  </p>
+                </div>
+                <div className="my-4 flex items-center justify-between px-4">
+                  <p className="text-sm font-semibold text-gray-500">
+                    Email
+                  </p>
+                  <p className="rounded-full bg-gray-200 px-2 py-0.5 text-xs font-semibold text-gray-600">
+                    {userInfo.email}
+                  </p>
+                </div>
+                <div className="my-4 flex items-center justify-between px-4">
+                  <p className="text-sm font-semibold text-gray-500">
+                    City
+                  </p>
+                  <p className="rounded-full bg-gray-200 px-2 py-0.5 text-xs font-semibold text-gray-600">
+                    {userInfo.city}
+                  </p>
+                </div>
+                <div className="my-4 flex items-center justify-between px-4">
+                  <p className="text-sm font-semibold text-gray-500">
+                    Country
+                  </p>
+                  <p className="rounded-full bg-gray-200 px-2 py-0.5 text-xs font-semibold text-gray-600">
+                    {userInfo.country}
+                  </p>
+                </div>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* {successMsg ? (
           <div className="w-full lgl:w-[500px] h-full flex flex-col justify-center">
             <p className="w-full px-4 py-10 text-green-500 font-medium font-titleFont">
               {successMsg}
@@ -97,7 +147,7 @@ const Profile = () => {
                 Update Profile
               </h1>
               <div className="flex flex-col gap-3">
-                {/* Password */}
+               
                 <div className="flex flex-col gap-.5">
                   <p className="font-titleFont text-base font-semibold text-gray-600">
                     Current Password
@@ -161,7 +211,7 @@ const Profile = () => {
               </div>
             </div>
           </form>
-        )}
+        )} */}
       </div>
     </div>
   );

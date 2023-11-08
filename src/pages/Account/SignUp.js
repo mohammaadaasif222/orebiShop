@@ -1,10 +1,22 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { BsCheckCircleFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logoLight } from "../../assets/images";
+import {setUserInfo} from '../../redux/orebiSlice'
+import { useDispatch, useSelector} from 'react-redux'
+
 
 const SignUp = () => {
-  // ============= Initial State Start here =============
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const {userInfo} = useSelector((state)=>state.orebiReducer)
+
+
+  // useEffect(()=>{
+  //   if(userInfo){
+  //     navigate('/')
+  //   }
+  // },[userInfo, navigate])
   const [clientName, setClientName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -115,9 +127,13 @@ const SignUp = () => {
         country &&
         zip
       ) {
+
+        const data = {clientName, email, password, city, country, zip}
+        dispatch(setUserInfo(data))
         setSuccessMsg(
           `Hello dear ${clientName}, Welcome you to OREBI Admin panel. We received your Sign up request. We are processing to validate your access. Till then stay connected and additional assistance will be sent to you by your mail at ${email}`
         );
+        navigate('/')
         setClientName("");
         setEmail("");
         setPhone("");

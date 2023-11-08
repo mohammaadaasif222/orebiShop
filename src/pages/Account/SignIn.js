@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { BsCheckCircleFill } from "react-icons/bs";
+import {useNavigate} from 'react-router-dom'
 import { Link } from "react-router-dom";
 import { logoLight } from "../../assets/images";
 
 const SignIn = () => {
-
+  const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
  
@@ -12,7 +13,6 @@ const SignIn = () => {
   const [errPassword, setErrPassword] = useState("");
 
   const [successMsg, setSuccessMsg] = useState("");
-  // ============= Event Handler Start here =============
   const handleEmail = (e) => {
     setEmail(e.target.value);
     setErrEmail("");
@@ -21,7 +21,6 @@ const SignIn = () => {
     setPassword(e.target.value);
     setErrPassword("");
   };
-  // ============= Event Handler End here ===============
   const handleSignUp = (e) => {
     e.preventDefault();
 
@@ -32,11 +31,12 @@ const SignIn = () => {
     if (!password) {
       setErrPassword("Create a password");
     }
-    // ============== Getting the value ==============
     if (email && password) {
+      
       setSuccessMsg(
         `Hello dear, Thank you for your attempt. We are processing to validate your access. Till then stay connected and additional assistance will be sent to you by your mail at ${email}`
       );
+      navigate('/profile')
       setEmail("");
       setPassword("");
     }
