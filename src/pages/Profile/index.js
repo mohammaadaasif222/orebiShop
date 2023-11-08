@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import { BsCheckCircleFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { logoLight } from "../../assets/images";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Profile = () => {
+  const navigate = useNavigate()
   const { products } = useSelector((state) => state.orebiReducer);
   const { userInfo } = useSelector((state) => state.orebiReducer);
+
+  useEffect(()=>{
+    if(!userInfo){
+   navigate('/signin')
+    }
+  },[navigate])
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
