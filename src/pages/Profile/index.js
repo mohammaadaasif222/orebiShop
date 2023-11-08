@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import { BsCheckCircleFill } from "react-icons/bs";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { logoLight } from "../../assets/images";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { removeUserInfo } from "../../redux/orebiSlice";
+import { useDispatch } from "react-redux";
 
 const Profile = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { products } = useSelector((state) => state.orebiReducer);
   const { userInfo } = useSelector((state) => state.orebiReducer);
-
-  useEffect(()=>{
-    if(!userInfo){
-   navigate('/signin')
+    console.log(userInfo)
+  useEffect(() => {
+    if (userInfo.length ===0 ) {
+      navigate("/signin");
     }
-  },[navigate])
+  }, [navigate ,userInfo]);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -64,7 +67,7 @@ const Profile = () => {
           {products ? (
             products.map((item) => (
               <div
-                key={item.title}
+                key={new Date()}
                 className="max-w-[600px] h-28 bg-gray-100 mb-3 flex items-center gap-3"
               >
                 <img className="w-20 p-3" src={item.image} alt="productImg" />
@@ -106,30 +109,33 @@ const Profile = () => {
                   </p>
                 </div>
                 <div className="my-4 flex items-center justify-between px-4">
-                  <p className="text-sm font-semibold text-gray-500">
-                    Email
-                  </p>
+                  <p className="text-sm font-semibold text-gray-500">Email</p>
                   <p className="rounded-full bg-gray-200 px-2 py-0.5 text-xs font-semibold text-gray-600">
                     {userInfo.email}
                   </p>
                 </div>
                 <div className="my-4 flex items-center justify-between px-4">
-                  <p className="text-sm font-semibold text-gray-500">
-                    City
-                  </p>
+                  <p className="text-sm font-semibold text-gray-500">City</p>
                   <p className="rounded-full bg-gray-200 px-2 py-0.5 text-xs font-semibold text-gray-600">
                     {userInfo.city}
                   </p>
                 </div>
                 <div className="my-4 flex items-center justify-between px-4">
-                  <p className="text-sm font-semibold text-gray-500">
-                    Country
-                  </p>
+                  <p className="text-sm font-semibold text-gray-500">Country</p>
                   <p className="rounded-full bg-gray-200 px-2 py-0.5 text-xs font-semibold text-gray-600">
                     {userInfo.country}
                   </p>
                 </div>
-               
+                <div className="my-4 flex items-center justify-between px-4">
+                  <button
+                    onClick={()=>dispatch(removeUserInfo())}
+                    type="button"
+                    className="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                  >
+                   
+                    Log Out
+                  </button>
+                </div>
               </div>
             </div>
           </div>
